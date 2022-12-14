@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import Navbar from './NavBar/Navbar'
-import Footer from './NavBar/Footer';
-import { MenuListMap } from './NavBar/MenuListMap';
-import NavService from '../Service/NavService';
-import Home from './Pages/Home';
-import NotFoundPage from './Pages/NotFoundPage';
-
-
+import React, { Component } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./NavBar/Navbar";
+import Footer from "./NavBar/Footer";
+import { MenuListMap } from "./NavBar/MenuListMap";
+import NavService from "../Service/NavService";
+import Home from "./Pages/Home";
+import NotFoundPage from "./Pages/NotFoundPage";
 
 class App extends Component {
   state = {
-    data: []
-  }
+    data: [],
+  };
 
   menuList = () => {
-    return (
-      this.state.data.map(({ page }) => {
-        return (
-          <Route path={`${page}`} element={MenuListMap().get(page)} key={page} />
-        )
-      }))
-  }
+    return this.state.data.map(({ page }) => {
+      return (
+        <Route path={`${page}`} element={MenuListMap().get(page)} key={page} />
+      );
+    });
+  };
 
   componentDidMount() {
     NavService().then((data) => {
@@ -32,7 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <div >
+      <div>
         <BrowserRouter>
           <div>
             <Navbar data={this.state.data} />
@@ -40,8 +37,7 @@ class App extends Component {
               <Routes>
                 <Route path={"/"} element={<Home />} />
                 {this.menuList()}
-                <Route path='*' element={<NotFoundPage />} />
-
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </div>
           </div>
@@ -49,7 +45,6 @@ class App extends Component {
         <Footer />
       </div>
     );
-
   }
 }
 
