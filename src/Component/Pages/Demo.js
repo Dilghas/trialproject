@@ -17,17 +17,17 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Demo = () => {
   const [image, setImage] = useState("");
-
+  
   const imageViewHandler = () => {
     let file = image;
     setImage(URL.createObjectURL(file));
-    console.log(file);
+    console.log(file+"file");
   };
 
   const onClickImage = async () => {
     const formData = new FormData();
     formData.append("image", image);
-    console.log(formData);
+   
 
     let result = await fetch("http://localhost:8081/get/csmt/upload", {
       method: "POST",
@@ -66,7 +66,6 @@ const Demo = () => {
                       component="label"
                     >
                       <input hidden type="file" onChange={imageHandling} />
-                      {console.log(image)}
                       <PhotoCamera />
                     </IconButton>
                   </Tooltip>
