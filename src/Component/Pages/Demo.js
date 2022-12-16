@@ -10,20 +10,23 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Demo = () => {
   const [image, setImage] = useState("");
+  const [preview,setPreview] = useState();
+  const [visibility, setVisibility] = useState(true)
   
   const imageViewHandler = () => {
-    let file = image;
-    setImage(URL.createObjectURL(file));
-    console.log(file+"file");
+    setVisibility(!visibility);
+    setPreview(URL.createObjectURL(image));
   };
 
+ 
   const onClickImage = async () => {
     const formData = new FormData();
     formData.append("image", image);
@@ -37,7 +40,8 @@ const Demo = () => {
   };
 
   const imageHandling = (event) => {
-    setImage(event.target.files[0]);
+    setImage(prevImg => event.target.files[0]);
+    imageViewHandler();
   };
   return (
     <div>
@@ -65,7 +69,7 @@ const Demo = () => {
                       aria-label="upload picture"
                       component="label"
                     >
-                      <input hidden type="file" onChange={imageHandling} />
+                      <input hidden type="file" accept="image/*" onChange={imageHandling} />
                       <PhotoCamera />
                     </IconButton>
                   </Tooltip>
@@ -76,11 +80,11 @@ const Demo = () => {
                       component="label"
                       onClick={imageViewHandler}
                     >
-                      <VisibilityIcon />
+                      {visibility? <VisibilityIcon /> : <VisibilityOffIcon />}
                     </IconButton>
                   </Tooltip>
                   <div className="image">
-                    <CardMedia component="img" image={image} />
+                   {!visibility && <CardMedia component="img" image={preview} />}
                   </div>
                 </Grid2>
               </Grid2>
