@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -40,7 +40,7 @@ const Demo = () => {
   };
 
   const imageHandling = (event) => {
-    setImage(prevImg => event.target.files[0]);
+    setImage(event.target.files[0]);
     imageViewHandler();
   };
   return (
