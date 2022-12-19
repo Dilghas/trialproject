@@ -12,18 +12,18 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Demo = () => {
   const [image, setImage] = useState("");
   const [preview,setPreview] = useState();
-  const [visibility, setVisibility] = useState(true)
+  const [visibility, setVisibility] = useState(false)
   
   const imageViewHandler = () => {
     setVisibility(!visibility);
-    setPreview(URL.createObjectURL(image));
+    setPreview(image!==""?URL.createObjectURL(image):image);
   };
 
  
@@ -41,8 +41,9 @@ const Demo = () => {
 
   const imageHandling = (event) => {
     setImage(event.target.files[0]);
-    imageViewHandler();
+    setVisibility(false)
   };
+
   return (
     <div>
       <Toolbar />
@@ -54,7 +55,7 @@ const Demo = () => {
                 File Upload
               </Typography>
               <Divider />
-              <Grid2 item xs={6} style={{ padding: 16 }}>
+              <Grid2 item xs={6} mdOffset={3} style={{ padding: 16 }}>
                 <Grid2 item xs={6} style={{ padding: 16 }}>
                   <Button
                     variant="contained"
@@ -70,7 +71,7 @@ const Demo = () => {
                       component="label"
                     >
                       <input hidden type="file" accept="image/*" onChange={imageHandling} />
-                      <PhotoCamera />
+                      <FileUploadIcon />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="View" arrow>
@@ -80,11 +81,11 @@ const Demo = () => {
                       component="label"
                       onClick={imageViewHandler}
                     >
-                      {visibility? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      {visibility? <VisibilityOffIcon /> : <VisibilityIcon /> }
                     </IconButton>
                   </Tooltip>
                   <div className="image">
-                   {!visibility && <CardMedia component="img" image={preview} />}
+                   {visibility && <CardMedia component="img" image={preview} />}
                   </div>
                 </Grid2>
               </Grid2>
