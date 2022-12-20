@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "./NavBar/Navbar";
 import Footer from "./NavBar/Footer";
 import { MenuListMap } from "./NavBar/MenuListMap";
-import NavService from "../Service/NavService";
+import { NavService } from "../Service/NavService";
 import Home from "./Pages/Home";
 import NotFoundPage from "./Pages/NotFoundPage";
 

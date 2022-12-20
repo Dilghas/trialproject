@@ -14,10 +14,10 @@ import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import axios from "axios";
 import "../Css/Message.css";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { fileUploadService } from "../../Service/NavService";
 
 const Demo = () => {
   const [image, setImage] = useState(null);
@@ -42,20 +42,11 @@ const Demo = () => {
   const onClickImage = async () => {
     const formData = new FormData();
     formData.append("image", image);
-    // let result = await fetch("http://localhost:8081/get/csmt/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // });
-    axios
-      .post("http://localhost:8081/get/csmt/upload", formData)
-      .then((response) => {
-        console.log(response);
-        // setMessage(response.data)
-        messageAlert(setMessage(response.data));
-        setImage(message==='Upload Successfully'? null : null)
-        handleOpen();
-        
-      });
+    fileUploadService(formData).then((response) => {
+      messageAlert(setMessage(response.data));
+      setImage(message === "Upload Successfully" ? null : null);
+      handleOpen();
+    });
   };
 
   const imageHandling = (event) => {
@@ -117,25 +108,6 @@ const Demo = () => {
                       <CardMedia component="img" image={preview} />
                     )}
                   </div>
-                  {/* <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        Message
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {message}
-                      </Typography>
-                    </Box>
-                  </Modal> */}
                 </Grid2>
               </Grid2>
             </Grid2>
@@ -143,7 +115,7 @@ const Demo = () => {
         </Paper>
       </Container>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           {message}!
         </Alert>
       </Snackbar>
