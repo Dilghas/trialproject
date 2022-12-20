@@ -39,7 +39,7 @@ const Demo = () => {
     setPreview(image !== null ? URL.createObjectURL(image) : image);
   };
 
-  const onClickImage = async () => {
+  const onClickUploadImage = async () => {
     const formData = new FormData();
     formData.append("image", image);
     fileUploadService(formData).then((response) => {
@@ -70,7 +70,7 @@ const Demo = () => {
                   <Button
                     variant="contained"
                     component="label"
-                    onClick={onClickImage}
+                    onClick={onClickUploadImage}
                     disabled={!image}
                   >
                     Upload

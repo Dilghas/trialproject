@@ -38,3 +38,11 @@ export const MenuList =[
         page:<Demo />,
     },
 ]
+
+
+const imageList = [
+    {
+        imageName : "d025c88b-1fb1-438c-8baa-51c813f973da",
+        path : "E:\\empay\\workspace\\CustomerManagement\\CustomerManagement\\images\\d025c88b-1fb1-438c-8baa-51c813f973da.jfif"
+    }
+]
