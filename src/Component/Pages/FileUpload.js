@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
+import { ImageViewTable } from "./ImageViewTable";
 
 
 
@@ -25,33 +26,34 @@ render(){
  
  const {names}=this.state;
     return (
+      <ImageViewTable/>
       
-      <div className="container">
-       <h1>Image List</h1>
-       <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Serial Number</th>
-            <th>Image List</th>
-            <th>Preview</th>
-          </tr>
-        </thead>
-        <tbody>
-         {
-          names.map((name1)=>{
-            return(
-            <tr>
-              <td>{name1.serialNumber}</td>
-              <td>{name1.customerFileName}</td>
+      // <div className="container">
+      //  <h1>Image List</h1>
+      //  <table className="table table-striped">
+      //   <thead>
+      //     <tr>
+      //       <th>Serial Number</th>
+      //       <th>Image List</th>
+      //       <th>Preview</th>
+      //     </tr>
+      //   </thead>
+      //   <tbody>
+      //    {
+      //     names.map((name1)=>{
+      //       return(
+      //       <tr>
+      //         <td>{name1.serialNumber}</td>
+      //         <td>{name1.customerFileName}</td>
              
 
-            </tr>
-          )})
-         }
-        </tbody>
+      //       </tr>
+      //     )})
+      //    }
+      //   </tbody>
   
-       </table>
-      </div>
+      //  </table>
+      // </div>
     );
 }
   
