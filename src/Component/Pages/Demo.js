@@ -1,34 +1,23 @@
 import { Container } from "@mui/system";
 import {
-  Box,
   Button,
   CardMedia,
   Divider,
-  Modal,
   Paper,
   Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { useState } from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
 import "../Css/Message.css";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const Demo = () => {
   const [image, setImage] = useState(null);
@@ -40,6 +29,10 @@ const Demo = () => {
   const handleClose = () => setOpen(false);
 
   const messageAlert = (event) => {};
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   const imageViewHandler = () => {
     setVisibility(!visibility);
@@ -56,10 +49,12 @@ const Demo = () => {
     axios
       .post("http://localhost:8081/get/csmt/upload", formData)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         // setMessage(response.data)
         messageAlert(setMessage(response.data));
+        setImage(message==='Upload Successfully'? null : null)
         handleOpen();
+        
       });
   };
 
@@ -122,7 +117,7 @@ const Demo = () => {
                       <CardMedia component="img" image={preview} />
                     )}
                   </div>
-                  <Modal
+                  {/* <Modal
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="modal-modal-title"
@@ -140,13 +135,18 @@ const Demo = () => {
                         {message}
                       </Typography>
                     </Box>
-                  </Modal>
+                  </Modal> */}
                 </Grid2>
               </Grid2>
             </Grid2>
           </Grid2>
         </Paper>
       </Container>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {message}!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
